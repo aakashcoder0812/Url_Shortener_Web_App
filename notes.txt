@@ -1,16 +1,16 @@
 Steps to proceed:
-what is spring
-what is spring mvc
-how to set up spring mvc with java
-how to build the project using maven
-what is maven
 CHECKPOINT 1 - Set up the environment and build spring mvc project using maven
-list all the use cases 
-design the use case
+
+List all the use cases design the use case:
+1 redirect to new page
+2 able to add new url
+3 expiry service, able to set status as expired
+4 a small service that will remove the entries from sql
+
+
 CHECKPOINT 2- write the core of the project, algo and ds
-find a suitable database- mysql or mongodb ..
-write their pros and cons
-find the api of selected database,
+
+
 CHECKOINT 3 - write a class that will be responsible only for connecting with database and storting and retrival of data
 to take care of multiple calls, read on how to handle multiple reqeusts coming to server... do i need to take care of that manually or will java handle it when different request come...
 make sure you use locking in request , so that when two or more same calls come, system is able to handle that 
@@ -21,5 +21,13 @@ read about system design
 how will u handle the problems
 CHECKPOINT 5 apply scalability in it.
 CHECKPOINT 6 - WRITE TEST CASES , UNIT TEST AND THEN INTEGRATION TEST
-CHECKPOINT 7 - INCREASE THE FEATURES... OPTIONAL FEATURES ..
+CHECKPOINT 7 - INCREASE THE FEATURES... OPTIONAL FEATURES ...
+
+CAVEATS
+lock while entering data in database
+handle read write prblem in db
+use dependency injection
+use logger
+
+
 

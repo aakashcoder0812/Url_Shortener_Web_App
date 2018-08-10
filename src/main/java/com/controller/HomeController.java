@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.core.NewEntry;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,8 @@ public class HomeController {
     public String processor(@RequestParam("input_string") String input_string)
     {
         System.out.println("input string provided is"+input_string);
-
+        NewEntry entry = new NewEntry();
+        String shorturl=entry.proceed(input_string,(long)999999999);
         return "homepage.jsp";
     }
 
