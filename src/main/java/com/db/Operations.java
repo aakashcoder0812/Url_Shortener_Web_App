@@ -1,9 +1,8 @@
 package com.db;
 
-import com.db.Data;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 
 public class Operations {
@@ -33,6 +32,55 @@ public class Operations {
         }
         else {return  false;}
 
+    }
+
+    public String isKeyPresent(long key)
+    {
+        String ans="";
+        try{
+            conn=DbConnection.con();
+            PreparedStatement ps = conn.prepareStatement("SELECT u.key,u.value from urlshortener.url2 u where u.key =?");
+            ps.setLong(1,key);
+            ResultSet resultSet=ps.executeQuery();
+            if(resultSet.next())
+            {
+                ans=resultSet.getString(2);
+                System.out.println("Found the key in db"+key+" corresponding url is"+ans);
+            }
+            else {
+                System.out.println("key"+key+" is not present in db");
+            }
+        }catch(Exception e){
+            System.out.println("unable to check if key is present in db in operations");
+            e.printStackTrace();
+
+    }
+    return  ans;
+
+    }
+
+    public long isValuePresent(String url) {
+        long ans = -1;
+        //checking if value is present and also that is not expired if yes then returning the corresponding key
+        try {
+            conn=DbConnection.con();
+            long unixTime = System.currentTimeMillis() / 1000L;
+            System.out.println("present unix time is "+unixTime);
+            PreparedStatement ps = conn.prepareStatement("SELECT u.key from urlshortener.url2 u where u.value =? && u.expiry>=?");
+            ps.setString(1,url);
+            ps.setLong(2,unixTime);
+            ResultSet resultSet= ps.executeQuery();
+            if(resultSet.next())
+            {
+             ans=resultSet.getLong(1);
+             System.out.println("value  recieved from db is "+ans);
+            }
+
+        } catch (Exception e){
+            System.out.println("Exception occurred "+e);
+            e.printStackTrace();
+        }
+        return ans;
     }
 
 

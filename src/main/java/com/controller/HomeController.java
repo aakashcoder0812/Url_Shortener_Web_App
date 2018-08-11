@@ -22,7 +22,8 @@ public class HomeController {
     {
         System.out.println("input string provided is"+input_string);
         NewEntry entry = new NewEntry();
-        String shorturl=entry.proceed(input_string,(long)999999999);
+        long l = 9999999999999999L;
+        String shorturl=entry.proceed(input_string,l);
         return "homepage.jsp";
     }
 

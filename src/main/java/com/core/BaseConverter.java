@@ -2,7 +2,7 @@ package com.core;
 
 public class BaseConverter {
 
-    public String idToShortUrl(long  n)
+    public static String idToShortUrl(long  n)
     {
         String map = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -17,7 +17,7 @@ public class BaseConverter {
         return shortUrl;
     }
 
-    long  shortURLtoID(String shortURL)
+    public static long  shortURLtoID(String shortURL)
     {
         long  id = 0;
         for (int i=shortURL.length()-1; i>=0; i--)
