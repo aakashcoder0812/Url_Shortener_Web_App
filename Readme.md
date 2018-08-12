@@ -1,5 +1,7 @@
 Project Name: Urlshortner
+
 Desciption: Analogous to Tinyurl , Built using spring mvc framework
+
 Features:
 1 Generates small url for given long url 
 2 Returns same small url if input url is already present in db
