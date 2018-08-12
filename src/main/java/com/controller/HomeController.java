@@ -19,19 +19,27 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String processor(@RequestParam("input_string") String input_string, int input_time, Model model)
+    public String processor(@RequestParam("input_string") String input_string, int input_time,String input_custom_url, Model model)
     {
         System.out.println("input string provided is"+input_string);
         System.out.println("Input time provided is "+input_time);
+        if(input_custom_url.length()>0)
+        {
+            System.out.println("custom url provided is"+input_custom_url);
+        }
+        else{
+            System.out.println("No custom url provided");
+        }
         long unixTime = System.currentTimeMillis() / 1000L;
         unixTime=unixTime+((long)input_time*60);
-        if(input_time==0)
+        if(input_time<=0)
         {
             unixTime=99999999999999L;
         }
         NewEntry entry = new NewEntry();
-        String shorturl=entry.proceed(input_string,unixTime);
-        shorturl="http://localhost:8080/"+shorturl;
+        String shorturl=entry.proceed(input_string,unixTime,input_custom_url,model);
+        if(shorturl.length()>0)
+        {shorturl="http://localhost:8080/"+shorturl;}
         model.addAttribute("shortUrl",shorturl);
 
         return "homepage.jsp";

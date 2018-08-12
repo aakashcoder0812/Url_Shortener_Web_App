@@ -1,6 +1,8 @@
 package com.core;
 
 import com.db.Operations;
+import org.springframework.ui.Model;
+
 import static com.core.BaseConverter.*;
 
 import java.util.Random;
@@ -13,8 +15,46 @@ public class NewEntry {
     values in db
 
      */
+    public String proceed(String Str,Long expiry,String custom_url,Model model)
+    {
+        if(custom_url.length()<=0){
+            return proceed(Str,expiry,model);
+        }
+        String shortUrl="";
+        shortUrl=ifKeyAlreadyPresent(Str);
+        if(shortUrl.length()>0)
+        {
+            System.out.println("url"+Str+"is already present in db , thus returning its oorresponding shorturl"+shortUrl);
+            model.addAttribute("url_already_present",Str);
+            return shortUrl;
+        }
 
-    public String proceed(String Str, Long expiry)
+        long number = BaseConverter.shortURLtoID(custom_url);
+        Operations operations= new Operations();
+        String alpha="";
+        alpha=operations.isKeyPresent(number,0);
+        if(alpha.length()>0)
+        {
+            System.out.println("Custom url is already present for url"+alpha);
+            model.addAttribute("custom_already_present",alpha);
+            return "";
+        }
+
+
+        boolean ans =operations.insert(number,Str,expiry);
+        if(ans)
+        {System.out.println("Successfully inserted in db with key: "+number+" url: "+Str+"with expiry: "+expiry);
+            return custom_url;}
+        else{
+            System.out.println("Unable to insert");
+
+            return "";
+        }
+
+
+    }
+
+    public String proceed(String Str, Long expiry,Model model)
     {
         Operations operations = new Operations();
         String ispresent="";
@@ -25,6 +65,7 @@ public class NewEntry {
         if(shortUrl.length()>0)
         {
             System.out.println("url"+Str+"is already present in db , thus returning its oorresponding shorturl"+shortUrl);
+            model.addAttribute("url_already_present",Str);
             return shortUrl;
         }
         //generating random number and then checking if it is not present in db already

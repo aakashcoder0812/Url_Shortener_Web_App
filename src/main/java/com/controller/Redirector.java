@@ -24,8 +24,9 @@ public class Redirector {
         }
         else{
             System.out.println("url not found , redirecting back to home page");
-            model.addAttribute("flag","something");
-            return "redirect:http://localhost:8080/";
+            //model.addAttribute("flag","something");
+            model.addAttribute("link","localhost:8080/"+name);
+            return "expired.jsp";
             //redirectView.setUrl("http://localhost:8080/");
 
         }
