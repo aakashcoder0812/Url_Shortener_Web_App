@@ -37,7 +37,7 @@ public class NewEntry {
             //BaseConverter baseConverter = new BaseConverter();
             shortUrl = BaseConverter.idToShortUrl(number);
             System.out.println("short url is " + shortUrl);
-             ispresent=operations.isKeyPresent(number);
+             ispresent=operations.isKeyPresent(number,0);
              if(count>1)
              {System.out.println("value is already is present in db and now count is"+count);}
         }while(ispresent.length()>0&& count<10);
@@ -87,7 +87,9 @@ public class NewEntry {
         long key=BaseConverter.shortURLtoID(shortUrl);
         System.out.println("the corresponding key of shorturl"+shortUrl+" is: "+key);
         Operations operations= new Operations();
-        String url=operations.isKeyPresent(key);
+        long unixTime = System.currentTimeMillis() / 1000L;
+        System.out.println("present unix time is "+unixTime);
+        String url=operations.isKeyPresent(key,unixTime);
         if(url.length()>0)
         {
             System.out.println("actual url found is "+url);

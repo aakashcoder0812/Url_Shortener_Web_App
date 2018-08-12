@@ -34,13 +34,14 @@ public class Operations {
 
     }
 
-    public String isKeyPresent(long key)
+    public String isKeyPresent(long key,long expiry_time)
     {
         String ans="";
         try{
             conn=DbConnection.con();
-            PreparedStatement ps = conn.prepareStatement("SELECT u.key,u.value from urlshortener.url2 u where u.key =?");
+            PreparedStatement ps = conn.prepareStatement("SELECT u.key,u.value from urlshortener.url2 u where u.key =? && u.expiry >?");
             ps.setLong(1,key);
+            ps.setLong(2,expiry_time);
             ResultSet resultSet=ps.executeQuery();
             if(resultSet.next())
             {
